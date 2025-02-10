@@ -24,8 +24,10 @@ const Sidebar = () => {
             try{
                 const response = await fetch ('https://dummyjson.com/products')
                 const data:FetchResponse = await response.json()
+                const uniqueCategories = Array.from(new Set(data.products.map(product=> product.category)))
+                // console.log(uniqueCategories);
 
-                console.log(data)
+                setCategories(uniqueCategories)
 
             } catch (error){
                 console.error('Error fetching product', error)
@@ -37,7 +39,18 @@ const Sidebar = () => {
 
 
   return (
-    <div>Sidebar</div>
+    <div className="w-64 p-5 h-screen">
+        <h1 className="text-2xl font-bold mb-10 mt-4">Store</h1>
+
+        <section>
+            <input type="text"  className="border-2 rounded px-2 sm:mb-0" placeholder="Search Product"/>
+
+            <div className="flex justify-center items-center">
+                <input type="text" className="border-2 mr-2 px-5 py-3 mb-3 w-full" placeholder="Min" />
+                <input type="text" className="border-2 mr-2 px-5 py-3 mb-3 w-full" placeholder="Max" />
+            </div>
+        </section>
+    </div>
   )
 }
 
